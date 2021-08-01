@@ -1,6 +1,4 @@
-# smart-home
-
-Smart Home DIY ideas for Linux Enthusiasts
+# Smart Home DIY ideas for Linux Enthusiasts
 
 1. Homebridge. Control your smart devices through Siri/Apple Home, even if devices never supported Apple Homekit.
 2. Raspbery Pi weather probes. Send the temperature/himidity data from your RPi Zero-W probe to an influs, graph them with Grafana.
