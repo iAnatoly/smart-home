@@ -4,11 +4,11 @@
 2. Raspberry Pi weather probes. Log and graph the temperature/humidity data from your RPi Zero-W probes.
 3. Your tesla log. Scrape the vehicle status via Tesla APIs, to see the trends over time.
 4. Network probes. Test your network connectivity through home and to the cloud, Wi-Fi or wired. 
-5. Make all teh data available over the public internet. Bring up a VM in AWS or GCP, replicate your influx data there, expose it over https via reverse proxy and cloudflare.
+5. Make all the data available remotely. Bring up a VM in AWS or GCP, replicate your influx data there, expose it over https via reverse proxy and cloudflare.
 
 ## Hardware Platform
 
-### Raspberry pi 3b. 
+### Raspberry pi 3b plus. 
 
 This one plays a server role in my home. It runs debian + influx + Grafana. Also doubles as a probe, but that is a secondary function. 
 I did not get top fancy with this one, just got a [KanaKit 3b plus from Amazon](https://www.amazon.com/gp/product/B07BC7BMHY/). 
@@ -37,6 +37,20 @@ I went with DHT-22 sensors, as they seem to provide a good balance between cost 
 - SSL certificates are provided by LetsEncrypt (free). I prefer to avoid the SSL CA warning, and I am frugal, so using LetsEnctypt was a logical idea. 
 - I had to purchase a domain name to make LetsEncrypt work. I've got one in .ml TLD fro free from https://my.freenom.com/. Again, frugality. 
 - I used cloudflare for my DNS hosting and frontend/CDN (agin, free). Did I need a CDN? Maybe not, but Cloudflare provides so may cool services for free. It was very hard to pass on. 
+
+## Public cloud.
+
+If you are planning to check on status of all your sensors when you are away, you probably want to get yourself an instance in the cloud (I really do not recommend publishing ports on your home router, this si s a very bad security practice). 
+
+The overall set up is:
+- Get a free tier instance eiother in AWS or in GCP. I recommnd GCP, as it does not expire. 
+- Bring up influx, grafana, envoy|nginx. 
+  - influx to keep a replica of the data you collect at home. 
+  - grafana to visualize it
+  - envoy or nginx as a reverse proxy
+- publish a subset of data from your local influx instance to the cloud
+   - push replication is secure, you are not opening your home fiorewall for this
+   - you do need a local instance of influx so you can continue collecting data even if public internet connectivity is down
 
 ## Application.
 - I user a bunch of python scripts to grab the data from various sources, and dump them into influxdb.
