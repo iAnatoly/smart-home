@@ -41,7 +41,9 @@ I went with DHT-22 sensors, as they seem to provide a good balance between cost 
 ## Application.
 - I user a bunch of python scripts to grab the data from various sources, and dump them into influxdb.
 - I use IRTT for network tests. It is awesome.
-- I am slowly replacing all the custom python scripts with Telegraf external modules. Why? Because I use Telegraf for monitoring anyway, so why not consolidate all the probes into one platform.
+- I am slowly replacing all the custom python scripts with Telegraf external modules. Why? Because I use Telegraf for monitoring anyway, so why not consolidate all the probes into one platform. Pugins created so far:
+  - https://github.com/iAnatoly/telegraf-input-dht_sensor
+  - https://github.com/iAnatoly/telegraf-input-net_irtt
 
 
 
